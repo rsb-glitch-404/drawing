@@ -1,6 +1,5 @@
 const container = document.createElement("div")
 container.classList.add("container")
-container.textContent = "hello"
 document.body.appendChild(container)
 
 
