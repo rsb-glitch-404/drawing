@@ -21,10 +21,10 @@ btnResize.addEventListener("click", () => {
     
     if (a === null) {
         console.log(a)
-    } else if (a > 64 || a < 1) {
-        alert("that's not valid!")
-    } else {
+    } else if (a < 65 && a > 0) {
         size = a
         console.log(size)
+    } else {
+        alert("that's not valid!")
     }
 });
