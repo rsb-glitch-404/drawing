@@ -4,14 +4,30 @@ document.body.appendChild(container)
 
 const btnResize = document.querySelector("#resize")
 const btnClear = document.querySelector("#clear")
-let size = 16
+let size = 4
+makeGrid(size)
 
-for (let x = 1; x < 17; x++) {
-    let div = document.createElement("div")
-    div.classList = "square"
-    div.id = `div${x}`
-    container.appendChild(div)
-    div.textContent = `im div${x}`
+
+
+function makeGrid(int) {
+    numOfDivs = int * int
+    let divSize = Math.floor(400 / int)
+    for (let x = 1; x <= numOfDivs; x++) {
+        let div = document.createElement("div")
+        div.classList = "square"
+        div.id = `div${x}`
+        div.setAttribute(
+            "style",
+            `flex:1 1 auto; width:${divSize}px; height:${divSize}px`,
+        );
+        container.appendChild(div)
+    }
+}
+
+function emptyGrid() {
+    while(container.hasChildNodes()) {
+        container.removeChild(container.firstChild)
+    }
 }
 
 
@@ -20,10 +36,11 @@ btnResize.addEventListener("click", () => {
     let a = prompt("input a number between 1 and 64")
     
     if (a === null) {
-        console.log(a)
-    } else if (a < 65 && a > 0) {
+        console.og(a)
+    } else if (a < 41 && a > 0) {
         size = a
-        console.log(size)
+        emptyGrid()
+        makeGrid(size)
     } else {
         alert("that's not valid!")
     }
