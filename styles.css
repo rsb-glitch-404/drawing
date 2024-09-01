@@ -2,10 +2,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #ededed;
     height: 100vh;
+    gap: 100px;
 }
 
+/* main box */
+
 .container {
+    background-color: white;
+    border: 4px solid black;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -14,7 +20,16 @@ body {
     height: 400px;
 }
 
-.square {
-    height: 10vw;
-    width: 10vw;
+/* settings bar */
+
+.settings {
+    background-color: white;
+    border: 4px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    height: 400px;
+    width: 100px;
 }
