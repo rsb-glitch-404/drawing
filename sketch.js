@@ -2,11 +2,13 @@ const container = document.createElement("div")
 container.classList.add("container")
 document.body.appendChild(container)
 
+
+let size = 4
+let color = "#333333"
 const btnResize = document.querySelector("#resize")
 const btnClear = document.querySelector("#clear")
-let size = 4
-makeGrid(size)
 
+makeGrid(size)
 
 
 function makeGrid(int) {
@@ -20,6 +22,8 @@ function makeGrid(int) {
             "style",
             `flex:1 1 auto; width:${divSize}px; height:${divSize}px`,
         );
+        div.addEventListener('mouseover', paint)
+        div.addEventListener('mousedown', paint)
         container.appendChild(div)
     }
 }
@@ -30,7 +34,10 @@ function emptyGrid() {
     }
 }
 
-
+function paint(e) {
+    if (e.type === 'mouseover' && !mousedown) return
+    e.target.style.backgroundColor = color
+}
 
 btnResize.addEventListener("click", () => {
     let a = prompt("input a number between 1 and 64")
@@ -44,4 +51,11 @@ btnResize.addEventListener("click", () => {
     } else {
         alert("that's not valid!")
     }
+});
+
+
+
+btnClear.addEventListener("click", () => {
+    emptyGrid()
+    makeGrid(size)
 });
