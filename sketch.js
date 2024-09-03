@@ -1,14 +1,23 @@
-const container = document.createElement("div")
-container.classList.add("container")
-document.body.appendChild(container)
-
-
 let size = 4
 let color = "#333333"
+let mode = "draw"
+let mouseDown = false
+
+
+const container = document.querySelector(".container")
 const btnResize = document.querySelector("#resize")
 const btnClear = document.querySelector("#clear")
+const btnErase = document.querySelector("#eraser")
+const btnDraw = document.querySelector("#draw")
+
+btnDraw.onclick = () => setMode("draw")
+btnErase.onclick = () => setMode("erase")
+
+document.body.onmousedown = () => (mouseDown = true)
+document.body.onmouseup = () => (mouseDown = false)
 
 makeGrid(size)
+setMode(mode)
 
 
 function makeGrid(int) {
@@ -35,16 +44,43 @@ function emptyGrid() {
 }
 
 function paint(e) {
-    if (e.type === 'mouseover' && !mousedown) return
+    if (e.type === 'mouseover' && !mouseDown) return
+    if (mode === "erase") {
+        color = "#FFFFFF"
+    } else {
+        color = "#333333"
+    }
+    
     e.target.style.backgroundColor = color
 }
 
+function setMode(a) {
+    if (mode === "draw") {
+        mode = "erase"
+        document.getElementById('eraser').style.backgroundColor = "#333333"
+        document.getElementById('eraser').style.color = "#FFFFFF"
+        document.getElementById('eraser').style.borderColor = "#333333"
+        document.getElementById('draw').style.color = "ButtonText"
+        document.getElementById('draw').style.backgroundColor = "ButtonFace"
+        document.getElementById('draw').style.borderColor = "ButtonBorder"
+
+    } else {
+        mode = "draw"
+        document.getElementById('eraser').style.backgroundColor = "ButtonFace"
+        document.getElementById('eraser').style.color = "ButtonText"
+        document.getElementById('eraser').style.borderColor = "ButtonBorder"
+        document.getElementById('draw').style.backgroundColor = "#333333"
+        document.getElementById('draw').style.color = "#FFFFFF"
+        document.getElementById('draw').style.borderColor = "#333333"
+
+    }
+}
+
 btnResize.addEventListener("click", () => {
-    let a = prompt("input a number between 1 and 64")
+    let a = prompt("input a number between 1 and 40")
     
-    if (a === null) {
-        console.og(a)
-    } else if (a < 41 && a > 0) {
+    if (a === null) return
+    if (a < 41 && a > 0) {
         size = a
         emptyGrid()
         makeGrid(size)
@@ -52,8 +88,6 @@ btnResize.addEventListener("click", () => {
         alert("that's not valid!")
     }
 });
-
-
 
 btnClear.addEventListener("click", () => {
     emptyGrid()
