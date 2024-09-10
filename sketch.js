@@ -1,6 +1,7 @@
 let size = 4
 let color = "#333333"
 let mode = "draw"
+let eraseColor = "#FFFFFF"
 let mouseDown = false
 
 
@@ -9,12 +10,17 @@ const btnResize = document.querySelector("#resize")
 const btnClear = document.querySelector("#clear")
 const btnErase = document.querySelector("#eraser")
 const btnDraw = document.querySelector("#draw")
+const colorPicker = document.getElementById('colorPicker')
+
 
 btnDraw.onclick = () => setMode("draw")
 btnErase.onclick = () => setMode("erase")
+colorPicker.oninput = (e) => changeColour(e.target.value)
+
 
 document.body.onmousedown = () => (mouseDown = true)
 document.body.onmouseup = () => (mouseDown = false)
+
 
 makeGrid(size)
 setMode(mode)
@@ -46,9 +52,9 @@ function emptyGrid() {
 function paint(e) {
     if (e.type === 'mouseover' && !mouseDown) return
     if (mode === "erase") {
-        color = "#FFFFFF"
+        color = eraseColor
     } else {
-        color = "#333333"
+        color = colorPicker.value
     }
     
     e.target.style.backgroundColor = color
@@ -74,6 +80,10 @@ function setMode(a) {
         document.getElementById('draw').style.borderColor = "#333333"
 
     }
+}
+
+function changeColour(newColour) {
+    color = newColour
 }
 
 btnResize.addEventListener("click", () => {
